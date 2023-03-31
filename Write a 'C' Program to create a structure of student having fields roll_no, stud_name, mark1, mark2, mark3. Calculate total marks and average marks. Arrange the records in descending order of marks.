@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_STUDENTS 100
+
+struct student {
+    int roll_no;
+    char stud_name[50];
+    int mark1;
+    int mark2;
+    int mark3;
+    int total;
+    float avg;
+};
+
+void add_student(struct student *students, int *count) {
+    struct student new_student;
+
+    printf("\nEnter student details:\n");
+    printf("Roll Number: ");
+    scanf("%d", &new_student.roll_no);
+
+    printf("Name: ");
+    scanf("%s", new_student.stud_name);
+
+    printf("Mark 1: ");
+    scanf("%d", &new_student.mark1);
+
+    printf("Mark 2: ");
+    scanf("%d", &new_student.mark2);
+
+    printf("Mark 3: ");
+    scanf("%d", &new_student.mark3);
+
+    new_student.total = new_student.mark1 + new_student.mark2 + new_student.mark3;
+    new_student.avg = new_student.total / 3.0;
+
+    students[*count] = new_student;
+    *count += 1;
+
+    printf("\nStudent added successfully.\n");
+}
+
+void display_students(struct student *students, int count) {
+    int i;
+
+    if (count == 0) {
+        printf("\nNo students in the record.\n");
+        return;
+    }
+
+    printf("\nList of students in the record:\n");
+
+    for (i = 0; i < count; i++) {
+        printf("Roll Number: %d\n", students[i].roll_no);
+        printf("Name: %s\n", students[i].stud_name);
+        printf("Mark 1: %d\n", students[i].mark1);
+        printf("Mark 2: %d\n", students[i].mark2);
+        printf("Mark 3: %d\n", students[i].mark3);
+        printf("Total: %d\n", students[i].total);
+        printf("Average: %.2f\n", students[i].avg);
+        printf("\n");
+    }
+}
+
+void sort_students(struct student *students, int count) {
+    int i, j;
+    struct student temp;
+
+    for (i = 0; i < count; i++) {
+        for (j = i + 1; j < count; j++) {
+            if (students[i].total < students[j].total) {
+                temp = students[i];
+                students[i] = students[j];
+                students[j] = temp;
+            }
+        }
+    }
+
+    printf("\nRecords sorted in descending order of marks.\n");
+}
+
+int main() {
+    int choice, count = 0;
+    struct student students[MAX_STUDENTS];
+
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Add student\n");
+        printf("2. Display students\n");
+        printf("3. Sort students by marks\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                add_student(students, &count);
+                break;
+            case 2:
+                display_students(students, count);
+                break;
+            case 3:
+                sort_students(students, count);
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("\nInvalid choice. Please try again.\n");
+        }
+    }
+
+   
