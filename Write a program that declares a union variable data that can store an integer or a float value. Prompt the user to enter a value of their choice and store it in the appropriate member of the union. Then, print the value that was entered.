@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+union Data {
+    int integer;
+    float floating_point;
+};
+
+int main() {
+    union Data data;
+    int choice;
+
+    printf("Enter 1 to store an integer, 2 to store a floating-point number: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter an integer: ");
+        scanf("%d", &data.integer);
+        printf("You entered: %d\n", data.integer);
+    }
+    else if (choice == 2) {
+        printf("Enter a floating-point number: ");
+        scanf("%f", &data.floating_point);
+        printf("You entered: %f\n", data.floating_point);
+    }
+    else {
+        printf("Invalid choice. Please enter 1 or 2.\n");
+    }
+
+    return 0;
+}
