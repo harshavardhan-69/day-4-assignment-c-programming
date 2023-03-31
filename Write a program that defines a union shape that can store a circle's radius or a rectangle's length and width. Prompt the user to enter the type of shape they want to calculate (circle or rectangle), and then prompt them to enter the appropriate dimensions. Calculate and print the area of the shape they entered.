@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.14159265
+
+union Shape {
+    float radius;
+    struct {
+        float length;
+        float width;
+    } rectangle;
+};
+
+int main() {
+    union Shape shape;
+    char choice;
+
+    printf("Enter c to calculate the area of a circle or r to calculate the area of a rectangle: ");
+    scanf("%c", &choice);
+
+    if (choice == 'c') {
+        printf("Enter the radius of the circle: ");
+        scanf("%f", &shape.radius);
+        printf("The area of the circle is: %.2f\n", PI * pow(shape.radius, 2));
+    }
+    else if (choice == 'r') {
+        printf("Enter the length of the rectangle: ");
+        scanf("%f", &shape.rectangle.length);
+        printf("Enter the width of the rectangle: ");
+        scanf("%f", &shape.rectangle.width);
+        printf("The area of the rectangle is: %.2f\n", shape.rectangle.length * shape.rectangle.width);
+    }
+    else {
+        printf("Invalid choice. Please enter c or r.\n");
+    }
+
+    return 0;
+}
